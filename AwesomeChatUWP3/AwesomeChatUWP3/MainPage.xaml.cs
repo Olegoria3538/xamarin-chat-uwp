@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Grpc.Core;
+using static SimpleChatApp.GrpcService.ChatService;
 
 namespace AwesomeChatUWP3
 {
@@ -15,6 +17,7 @@ namespace AwesomeChatUWP3
 		private bool isLogin = false;
 		private string login = "";
 		private ChatPage chatPage = null;
+		private ChatServiceClient chatServiceClient = null;
 
 		public MainPage()
 		{
@@ -23,6 +26,7 @@ namespace AwesomeChatUWP3
 			InitializeComponent();
 			BtnOpenChat.SetValue(IsVisibleProperty, false);
 			BtnLogout.SetValue(IsVisibleProperty, false);
+			chatServiceClient = new ChatServiceClient(new Channel("localhost", 30051, ChannelCredentials.Insecure));
 		}
 		private void OpenChat_Pressed(object sender, EventArgs e)
 		{
@@ -33,7 +37,7 @@ namespace AwesomeChatUWP3
 		}
 		private async void Login_Pressed(object sender, EventArgs e)
 		{
-			var LoginInstace = new Login();
+			var LoginInstace = new Login(chatServiceClient);
 			LoginInstace.Disappearing += async (sender2, e2) =>
 			{
 				isLogin = LoginInstace.isLogin;
@@ -56,7 +60,7 @@ namespace AwesomeChatUWP3
 		}
 		private void CreateAccount_Pressed(object sender, EventArgs e)
 		{
-			var CreateAccountInstance = new CreateAccount();
+			var CreateAccountInstance = new CreateAccount(chatServiceClient);
 			CreateAccountInstance.Disappearing += async (sender2, e2) =>
 			{
 				if (CreateAccountInstance.succes)

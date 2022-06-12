@@ -1,11 +1,14 @@
-﻿using System;
+﻿using SimpleChatApp.CommonTypes;
+using SimpleChatApp.GrpcService;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static SimpleChatApp.GrpcService.ChatService;
 
 namespace AwesomeChatUWP3
 {
@@ -13,8 +16,10 @@ namespace AwesomeChatUWP3
     public partial class CreateAccount : ContentPage
     {
         public bool succes = false;
-        public CreateAccount()
+        private ChatServiceClient chatServiceClient = null;
+        public CreateAccount(ChatServiceClient chatServiceClient)
         {
+            this.chatServiceClient = chatServiceClient;
             InitializeComponent();
         }
         private void UndoNavigation_Pressed(object sender, EventArgs e)
@@ -33,9 +38,20 @@ namespace AwesomeChatUWP3
                     await DisplayAlert("Пароли не равны", "", "OK");
                 } else
                 {
-                    await Task.Delay(500);
-                    succes = true;
-                    Navigation.PopModalAsync();
+                    var userData = new UserData()
+                    {
+                        Login = login,
+                        PasswordHash = SHA256.GetStringHash(pass)
+                    };
+                    var res = await chatServiceClient.RegisterNewUserAsync(userData);
+                    if(res.Status == SimpleChatApp.GrpcService.RegistrationStatus.RegistrationSuccessfull)
+                    {
+                        succes = true;
+                        Navigation.PopModalAsync();
+                    } else
+                    {
+                        await DisplayAlert("Беда", "", "OK");
+                    }
                 }
             }
         }
