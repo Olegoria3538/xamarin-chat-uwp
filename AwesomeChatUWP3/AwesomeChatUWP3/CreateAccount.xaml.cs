@@ -17,6 +17,10 @@ namespace AwesomeChatUWP3
         {
             InitializeComponent();
         }
+        private void UndoNavigation_Pressed(object sender, EventArgs e)
+        {
+            Navigation.PopModalAsync();
+        }
         private async void CreateAccount_Pressed(object sender, EventArgs e)
         {
             var login = Login?.Text != null ? Login.Text : "";

@@ -39,6 +39,11 @@ namespace AwesomeChatUWP3
 			Messages.Add(u);
 			ChatList.ScrollTo(u, ScrollToPosition.End, true);
 		}
+
+		private void UndoNavigation_Pressed(object sender, EventArgs e)
+		{
+			Navigation.PopModalAsync();
+		}
 	}
 
 	public class UserMessage

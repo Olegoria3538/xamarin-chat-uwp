@@ -3,12 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AwesomeChatUWP3.Login">
     <ContentPage.Content>
-        <StackLayout Padding="16">
-            <Label Text="Войти в аккаунт" FontSize="24" />
-            <Entry Placeholder="Имя" x:Name="LoginInput" />
-            <Entry Placeholder="Пароль" x:Name="Password" IsPassword="True" />
-            <StackLayout HorizontalOptions="End">
-                <Button Text="Войти в аккаунт" Pressed="Login_Pressed" />
+        <StackLayout Spacing="0">
+            <StackLayout Padding="16" HorizontalOptions="StartAndExpand" Orientation="Horizontal" >
+                <Button Text="Назад" Pressed="UndoNavigation_Pressed" />
+            </StackLayout>
+            <StackLayout Padding="16">
+                <Label Text="Войти в аккаунт" FontSize="24" />
+                <Entry Placeholder="Имя" x:Name="LoginInput" />
+                <Entry Placeholder="Пароль" x:Name="Password" IsPassword="True" />
+                <StackLayout HorizontalOptions="End">
+                    <Button Text="Войти в аккаунт" Pressed="Login_Pressed" />
+                </StackLayout>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
