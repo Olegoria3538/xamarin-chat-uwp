@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AwesomeChatUWP3.ChatPage">
+    <ContentPage.Content>
+		<StackLayout Padding="16">
+			<ListView x:Name="ChatList">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+                            <StackLayout VerticalOptions="CenterAndExpand">
+								<Label>
+									<Label.FormattedText>
+										<FormattedString>
+											<FormattedString.Spans>
+												<Span TextColor="Blue" FontAttributes="Bold" Text="{Binding Username}"/>
+												<Span TextColor="Blue" FontAttributes="Bold" Text=": "/>
+												<Span TextColor="Black" Text="{Binding Message}"/>
+											</FormattedString.Spans>
+										</FormattedString>
+									</Label.FormattedText>								
+								</Label>
+                            </StackLayout>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+			<StackLayout Orientation="Horizontal">
+				<Editor x:Name="FieldMassge" HorizontalOptions="FillAndExpand"/>
+                <Button Text="Send" Pressed="SendMessage_Pressed" />
+			</StackLayout>
+		</StackLayout>
+    </ContentPage.Content>
+</ContentPage>

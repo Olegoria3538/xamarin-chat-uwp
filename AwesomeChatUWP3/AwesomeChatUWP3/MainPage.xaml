@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:my="clr-namespace:AwesomeChatUWP3"
+             x:Class="AwesomeChatUWP3.MainPage">
+
+    <StackLayout Padding="16,16,16,16" Spacing="24">
+        <StackLayout>
+            <Frame CornerRadius="5">
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                        <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                            <Label Text="status:" FontSize="16" />
+                            <Label x:Name="StatusUser" Text="offline" FontSize="16" TextColor="Gray" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" HeightRequest="35">
+                            <Button
+                                x:Name="BtnLogout"
+                                WidthRequest="70"
+                                FontSize="12"
+                                Padding="0,0,0,0"
+                                CornerRadius="5"
+                                BackgroundColor="Red"
+                                TextColor="White"
+			                    Text="Logout"
+			                    Pressed="ButtonLogout_Pressed"
+			                    />
+                        </StackLayout>
+                    </StackLayout>
+                    <Frame CornerRadius="100" 
+                           HeightRequest="150"
+                           WidthRequest="150"
+                           HorizontalOptions="Center"
+                           Padding="0"
+                           IsClippedToBounds="True">
+                        <Image x:Name="avatar" Source="https://n1s2.starhit.ru/6a/46/ae/6a46aeed947a183d67d1bc48211151bf/445x460_0_6a5d57baf3fab914fdfcc2cc563ed893@480x496_0xac120003_4430520541578509619.jpg" />
+                    </Frame>
+                    <Label x:Name="UserName" Text="Not authorized" FontSize="24" HorizontalTextAlignment="Center" />
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+        <Frame CornerRadius="5">
+            <StackLayout>
+                <Button
+                    x:Name="BtnLogin"
+			        Text="Go to login screen"
+			        Pressed="Login_Pressed"
+			        />
+                <Button
+                    x:Name="BtnCreateAccount"
+			        Text="Go to create account screen"
+			        Pressed="CreateAccount_Pressed"
+			        />
+                <Button
+                    x:Name="BtnOpenChat"
+			        Text="Go to chat screen"
+			        Pressed="OpenChat_Pressed"
+			        />
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>

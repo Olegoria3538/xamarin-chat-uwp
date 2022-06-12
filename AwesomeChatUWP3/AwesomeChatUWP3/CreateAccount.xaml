@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AwesomeChatUWP3.CreateAccount">
+    <ContentPage.Content>
+        <StackLayout Padding="16">
+            <Label Text="Создать аккаунт" FontSize="24" />
+            <Entry  Placeholder="Имя" x:Name="Login" />
+            <Entry  Placeholder="Пароль" x:Name="Password" IsPassword="True" />
+            <Entry  Placeholder="Повторить пароль" x:Name="Password2" IsPassword="True" />
+            <StackLayout HorizontalOptions="End">
+                <Button Text="Создать аккаунт" Pressed="CreateAccount_Pressed" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

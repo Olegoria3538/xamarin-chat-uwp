@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AwesomeChatUWP3.Login">
+    <ContentPage.Content>
+        <StackLayout Padding="16">
+            <Label Text="Войти в аккаунт" FontSize="24" />
+            <Entry Placeholder="Имя" x:Name="LoginInput" />
+            <Entry Placeholder="Пароль" x:Name="Password" IsPassword="True" />
+            <StackLayout HorizontalOptions="End">
+                <Button Text="Войти в аккаунт" Pressed="Login_Pressed" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
