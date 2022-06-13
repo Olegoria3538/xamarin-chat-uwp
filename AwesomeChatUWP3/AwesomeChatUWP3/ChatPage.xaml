@@ -17,8 +17,8 @@
 										<Label.FormattedText>
 											<FormattedString>
 												<FormattedString.Spans>
-													<Span TextColor="Blue" FontAttributes="Bold" Text="{Binding Username}"/>
-													<Span TextColor="Blue" FontAttributes="Bold" Text=": "/>
+                                                    <Span TextColor="{Binding ColorText}" FontAttributes="Bold" Text="{Binding Username}"/>
+                                                    <Span TextColor="{Binding ColorText}" FontAttributes="Bold" Text=": "/>
 													<Span TextColor="Black" Text="{Binding Message}"/>
 												</FormattedString.Spans>
 											</FormattedString>

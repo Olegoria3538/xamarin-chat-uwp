@@ -61,7 +61,7 @@ namespace AwesomeChatUWP3
 					BtnOpenChat.SetValue(IsVisibleProperty, true);
 					BtnLogout.SetValue(IsVisibleProperty, true);
 					await Task.Delay(1);
-					chatPage = new ChatPage(login, guid, chatServiceClient);
+					chatPage = new ChatPage(guid, chatServiceClient);
 					Navigation.PushModalAsync(chatPage);
 				}
 			};

@@ -18,15 +18,15 @@ namespace AwesomeChatUWP3
 
 	public partial class ChatPage : ContentPage
 	{
-		string login = "";
 		private ChatServiceClient chatServiceClient = null;
 		public SimpleChatApp.GrpcService.Guid guid = null;
 		public ObservableCollection<UserMessage> Messages;
-		
+		private Color[] colorsPull = new Color[] { Color.Green, Color.Red, Color.Pink, Color.PowderBlue, Color.Black, Color.Blue };
+		private Dictionary<long, Color> userColors = new Dictionary<long, Color>();
+		private int nextColorIndex = 0;
 
-		public ChatPage(string login, SimpleChatApp.GrpcService.Guid guid, ChatServiceClient chatServiceClient)
+		public ChatPage(SimpleChatApp.GrpcService.Guid guid, ChatServiceClient chatServiceClient)
 		{
-			this.login = login;
 			this.chatServiceClient = chatServiceClient;
 			this.guid = guid;
 			InitializeComponent();
@@ -55,7 +55,7 @@ namespace AwesomeChatUWP3
             {
 				foreach (var x in res.Logs)
                 {
-					AddMessage(x.PlayerLogin, x.Text);
+					AddMessage(x.PlayerLogin, x.Text, x.PlayerId);
 				}
             }	
 		}
@@ -68,7 +68,7 @@ namespace AwesomeChatUWP3
 				var messages = streaming.ResponseStream.Current;
 				foreach (var x in messages.Logs)
                 {
-					AddMessage(x.PlayerLogin, x.Text);
+					AddMessage(x.PlayerLogin, x.Text, x.PlayerId);
 				}
             }
 		}
@@ -90,9 +90,18 @@ namespace AwesomeChatUWP3
 				FieldMassge.Text = "";
 			}
 		}
-		private void AddMessage(string user, string message)
+		private void AddMessage(string user, string message, long userId)
 		{
-			var u = new UserMessage(user, message);
+            if (!userColors.ContainsKey(userId))
+            {
+				userColors.Add(userId, colorsPull[nextColorIndex]);
+				nextColorIndex += 1;
+				if (colorsPull.Length < nextColorIndex)
+                {
+					nextColorIndex = 0;
+				}
+			}
+			var u = new UserMessage(user, message, userColors[userId]);
 			Messages.Add(u);
 			ChatList.ScrollTo(u, ScrollToPosition.End, true);
 		}
@@ -107,10 +116,12 @@ namespace AwesomeChatUWP3
 	{
 		public string Username { get; private set; }
 		public string Message { get; private set; }
-		public UserMessage(string user, string message)
-		{
-			Username = user;
-			Message = message;
-		}
-	}
+		public Color ColorText { get; private set; }
+		public UserMessage(string user, string message, Color colorText)
+        {
+            Username = user;
+            Message = message;
+            ColorText = colorText;
+        }
+    }
 }
