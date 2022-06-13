@@ -17,6 +17,7 @@ namespace AwesomeChatUWP3
         public string login = "";
         public string pass = "";
         public bool isLogin = false;
+        public SimpleChatApp.GrpcService.Guid guid = null;
         private ChatServiceClient chatServiceClient = null;
         public Login(ChatServiceClient chatServiceClient)
         {
@@ -53,6 +54,7 @@ namespace AwesomeChatUWP3
                 var res = await chatServiceClient.LogInAsync(authorizationData);
                 if(res.Status == SimpleChatApp.GrpcService.AuthorizationStatus.AuthorizationSuccessfull)
                 {
+                    guid = res.Sid;
                     isLogin = true;
                     Navigation.PopModalAsync();
                 } else

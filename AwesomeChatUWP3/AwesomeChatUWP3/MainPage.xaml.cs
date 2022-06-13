@@ -18,6 +18,7 @@ namespace AwesomeChatUWP3
 		private string login = "";
 		private ChatPage chatPage = null;
 		private ChatServiceClient chatServiceClient = null;
+		private SimpleChatApp.GrpcService.Guid guid = null;
 
 		public MainPage()
 		{
@@ -43,6 +44,7 @@ namespace AwesomeChatUWP3
 				isLogin = LoginInstace.isLogin;
 				if (LoginInstace.isLogin)
 				{
+					guid = LoginInstace.guid;
 					login = LoginInstace.login;
 					UserName.Text = LoginInstace.login;
 					StatusUser.Text = "online";
@@ -51,8 +53,8 @@ namespace AwesomeChatUWP3
 					BtnCreateAccount.SetValue(IsVisibleProperty, false);
 					BtnOpenChat.SetValue(IsVisibleProperty, true);
 					BtnLogout.SetValue(IsVisibleProperty, true);
-					chatPage = new ChatPage(login);
-					await Task.Delay(1);
+					await Task.Delay(1);					
+					chatPage = new ChatPage(login, guid, chatServiceClient);
 					OpenChat_Pressed(sender, e);
 				}
 			};
