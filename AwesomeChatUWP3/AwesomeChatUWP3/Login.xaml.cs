@@ -59,7 +59,8 @@ namespace AwesomeChatUWP3
                     Navigation.PopModalAsync();
                 } else
                 {
-                    await DisplayAlert("Беда", "", "OK");
+                    var msgError = res.Status == SimpleChatApp.GrpcService.AuthorizationStatus.WrongLoginOrPassword ? "Неверный логин или пароль" : "Беда";
+                    await DisplayAlert(msgError, "", "OK");
                 }
             }        
         }
