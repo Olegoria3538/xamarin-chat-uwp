@@ -36,7 +36,14 @@ namespace AwesomeChatUWP3
 				Navigation.PushModalAsync(chatPage);
 			}
 		}
-		private async void Login_Pressed(object sender, EventArgs e)
+		private void LoginHandler(object sender, EventArgs e)
+		{
+			if (chatPage != null)
+			{
+				Navigation.PushModalAsync(chatPage);
+			}
+		}
+		private async void CreateLoginModal()
 		{
 			var LoginInstace = new Login(chatServiceClient);
 			LoginInstace.Disappearing += async (sender2, e2) =>
@@ -53,12 +60,16 @@ namespace AwesomeChatUWP3
 					BtnCreateAccount.SetValue(IsVisibleProperty, false);
 					BtnOpenChat.SetValue(IsVisibleProperty, true);
 					BtnLogout.SetValue(IsVisibleProperty, true);
-					await Task.Delay(1);					
+					await Task.Delay(1);
 					chatPage = new ChatPage(login, guid, chatServiceClient);
-					OpenChat_Pressed(sender, e);
+					Navigation.PushModalAsync(chatPage);
 				}
 			};
 			await Navigation.PushModalAsync(LoginInstace);
+		}
+		private async void Login_Pressed(object sender, EventArgs e)
+		{
+			CreateLoginModal();
 		}
 		private void CreateAccount_Pressed(object sender, EventArgs e)
 		{
@@ -68,24 +79,29 @@ namespace AwesomeChatUWP3
 				if (CreateAccountInstance.succes)
 				{
 					await Task.Delay(1);
-					Login_Pressed(sender, e);
+					CreateLoginModal();
 				}
 			};
 			Navigation.PushModalAsync(CreateAccountInstance);
+		}
+		private async void Logout()
+		{
+			UserName.Text = ":(";
+			StatusUser.Text = "offline";
+			StatusUser.TextColor = Color.Gray;
+			BtnLogin.SetValue(IsVisibleProperty, true);
+			BtnCreateAccount.SetValue(IsVisibleProperty, true);
+			BtnOpenChat.SetValue(IsVisibleProperty, false);
+			BtnLogout.SetValue(IsVisibleProperty, false);
+			chatPage = null;
+			chatServiceClient.Unsubscribe(guid);
 		}
 		private async void ButtonLogout_Pressed(object sender, EventArgs e)
 		{
 			var sheetResult = await DisplayAlert("Выйти?", "", "Да", "Нет");
 			if (sheetResult)
 			{
-				UserName.Text = ":(";
-				StatusUser.Text = "offline";
-				StatusUser.TextColor = Color.Gray;
-				BtnLogin.SetValue(IsVisibleProperty, true);
-				BtnCreateAccount.SetValue(IsVisibleProperty, true);
-				BtnOpenChat.SetValue(IsVisibleProperty, false);
-				BtnLogout.SetValue(IsVisibleProperty, false);
-				chatPage = null;
+				Logout();
 			}
 		}
 	}
